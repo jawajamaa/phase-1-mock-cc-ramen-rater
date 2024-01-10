@@ -20,7 +20,10 @@ function initialFetch(baseUrl, ramenId) {
             }
         }).then (results => {
             console.log(results);
-            // renderRamenMenu(results);
+            results.forEach((result)=>{
+                renderRamenMenu(result);
+            })
+            
         })
 }
 
@@ -28,6 +31,11 @@ initialFetch(baseUrl, ramenId);
 
 // Ramen Menu render
 
-function renderRamenMenu() {
-
+function renderRamenMenu(result) {
+// iterate through the menu to pull image out and display it on DOM
+console.log(result);
+    let ramenMenuDiv = document.getElementById("ramen-menu");
+    let ramenImg = document.createElement("img");
+    ramenImg.src = result.image;
+    ramenMenuDiv.appendChild(ramenImg);
 }
