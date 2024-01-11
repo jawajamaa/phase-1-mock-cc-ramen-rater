@@ -36,6 +36,26 @@ function renderRamenMenu(result) {
 console.log(result);
     let ramenMenuDiv = document.getElementById("ramen-menu");
     let ramenImg = document.createElement("img");
+    ramenImg.id = result.id;
     ramenImg.src = result.image;
+    console.log(result.image);
+    console.log(ramenImg.src);
+    ramenImg.addEventListener("click", ()=>{
+        console.log("I've been clicked");
+        renderRestDets(ramenImg);
+    })
     ramenMenuDiv.appendChild(ramenImg);
+}
+
+function renderRestDets(ramenImg) {
+    const ramenDetail = document.getElementById("ramen-detail");
+    let detailImg = ramenDetail.querySelector(".detail-image");
+    console.log(document.getElementById("ramen-detail").querySelector(".detail-image"));
+    detailImg.remove();
+    detailImg = document.createElement("img");
+    detailImg.className = "detail-image";
+    console.log(detailImg);
+    detailImg.src = ramenImg.src;
+    ramenDetail.appendChild(detailImg);
+    console.log(detailImg);
 }
