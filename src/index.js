@@ -7,11 +7,13 @@
 // Global Variables for fetch and Event Listener to create new Ramen
 const baseUrl = "http://localhost:3000/";
 let ramenId = "ramens";
-const addNewRamen = document.getElementById("new-ramen");
-addNewRamen.addEventListener("submit", (event)=>{
-    event.preventDefault();
-    createNewRamen();
-})
+addNewRamenEl();
+// const addNewRamen = document.getElementById("new-ramen");
+// addNewRamen.addEventListener("submit", (event)=>{
+//     event.preventDefault();
+
+//     createNewRamen();
+// })
 
 // Initial Fetch function and invocation
 // ////////////////////////////////////////////////////////////////////////////
@@ -38,6 +40,16 @@ console.log(results);
 }
 // initialFetch invocation
 initialFetch(baseUrl, ramenId);
+
+// addNewRamenEl() initialized by function call on load, but waiting for EL invocation.
+function addNewRamenEl() {
+    const addNewRamen = document.getElementById("new-ramen");
+    addNewRamen.addEventListener("submit", (event)=>{
+        event.preventDefault();
+
+        createNewRamen();
+    })
+}
 
 // Ramen Menu render
 // ////////////////////////////////////////////////////////////////////////////
