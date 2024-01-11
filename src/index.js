@@ -4,10 +4,16 @@
 // Advanced Deliverables
 // Extra Advanced Deliverables
 
-
+// Global Variables for fetch and Event Listener to create new Ramen
 const baseUrl = "http://localhost:3000/";
 let ramenId = "ramens";
-// Initial Fetch
+const addNewRamen = document.getElementById("new-ramen");
+addNewRamen.addEventListener("submit", (event)=>{
+    event.preventDefault();
+    createNewRamen();
+})
+
+// Initial Fetch function and invocation
 // ////////////////////////////////////////////////////////////////////////////
 
 function initialFetch(baseUrl, ramenId) {
@@ -19,20 +25,22 @@ function initialFetch(baseUrl, ramenId) {
                 throw error(response.statusText);
             }
         }).then (results => {
-            console.log(results);
+console.log(results);
+            // iterate through the menu to pull each object out and pass it to the render function
             results.forEach((result)=>{
                 renderRamenMenu(result);
             })
             
         })
 }
-
+// initialFetch invocation
 initialFetch(baseUrl, ramenId);
 
 // Ramen Menu render
+// ////////////////////////////////////////////////////////////////////////////
 
 function renderRamenMenu(result) {
-// iterate through the menu to pull image out and display it on DOM
+// receive each indvidual object to pull image out and display it on DOM, and then be able to extract each key value pair when needed as well. Iteration is done to the promised db.json object so this function can be reused when adding a new ramen
     let ramenMenuDiv = document.getElementById("ramen-menu");
     let ramenImg = document.createElement("img");
     ramenImg.id = result.id;
@@ -44,19 +52,43 @@ function renderRamenMenu(result) {
     ramenMenuDiv.appendChild(ramenImg);
 }
 
+// renderRestDets(details) function that is also used by createNewRamen function
 function renderRestDets(result) {
     const ramenDetail = document.getElementById("ramen-detail");
     let detailImg = ramenDetail.querySelector(".detail-image");
     let prodName = ramenDetail.querySelector(".name");
     let restName = ramenDetail.querySelector(".restaurant");
+    let rateDisplay = document.getElementById("rating-display");
+    let commDisplay = document.getElementById("comment-display");
+
     detailImg.remove();
     detailImg = document.createElement("img");
     detailImg.className = "detail-image";
     detailImg.alt = result.name;
-    console.log(result.id);
-    console.log(result.image);
     detailImg.src = result.image;
     detailImg.id = result.id;
     ramenDetail.appendChild(detailImg);
-    console.log(detailImg.id);
+    prodName.innerText = result.name;
+    restName.innerText = result.restaurant;
+    rateDisplay.innerText = result.rating;
+    commDisplay.innerText = result.comment;
+
+}
+// invoked by eventListener on line 13 to add new Ramen object, and invokes renderRamenMenu and renderRestDets functions to display new Ramen, but does not add to the db.json yet.
+function createNewRamen() {
+    let newRamenName = document.getElementById("new-name").value;
+    let newRestaurant = document.getElementById("new-restaurant").value;
+    let newRamenImg = document.getElementById("new-image").value;
+    let newRamenRate = document.getElementById("new-rating").value;
+    let newRamenComm = document.getElementById("new-comment").value;
+    let newRamenObj = {};
+
+    newRamenObj.name = newRamenName;
+    newRamenObj.restaurant = newRestaurant;
+    newRamenObj.image = newRamenImg;
+    newRamenObj.rating = newRamenRate;
+    newRamenObj.comment = newRamenComm;
+
+    renderRamenMenu(newRamenObj);
+    renderRestDets(newRamenObj);
 }
