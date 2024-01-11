@@ -26,6 +26,9 @@ function initialFetch(baseUrl, ramenId) {
             }
         }).then (results => {
 console.log(results);
+            // display first ramen's img and details from db.json on load 
+            let initialRamen = results[0];
+            renderRestDets(initialRamen);
             // iterate through the menu to pull each object out and pass it to the render function
             results.forEach((result)=>{
                 renderRamenMenu(result);
