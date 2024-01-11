@@ -33,29 +33,30 @@ initialFetch(baseUrl, ramenId);
 
 function renderRamenMenu(result) {
 // iterate through the menu to pull image out and display it on DOM
-console.log(result);
     let ramenMenuDiv = document.getElementById("ramen-menu");
     let ramenImg = document.createElement("img");
     ramenImg.id = result.id;
     ramenImg.src = result.image;
-    console.log(result.image);
-    console.log(ramenImg.src);
     ramenImg.addEventListener("click", ()=>{
-        console.log("I've been clicked");
-        renderRestDets(ramenImg);
+        console.log(result.id);
+        renderRestDets(result);
     })
     ramenMenuDiv.appendChild(ramenImg);
 }
 
-function renderRestDets(ramenImg) {
+function renderRestDets(result) {
     const ramenDetail = document.getElementById("ramen-detail");
     let detailImg = ramenDetail.querySelector(".detail-image");
-    console.log(document.getElementById("ramen-detail").querySelector(".detail-image"));
+    let prodName = ramenDetail.querySelector(".name");
+    let restName = ramenDetail.querySelector(".restaurant");
     detailImg.remove();
     detailImg = document.createElement("img");
     detailImg.className = "detail-image";
-    console.log(detailImg);
-    detailImg.src = ramenImg.src;
+    detailImg.alt = result.name;
+    console.log(result.id);
+    console.log(result.image);
+    detailImg.src = result.image;
+    detailImg.id = result.id;
     ramenDetail.appendChild(detailImg);
-    console.log(detailImg);
+    console.log(detailImg.id);
 }
